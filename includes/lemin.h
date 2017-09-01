@@ -7,4 +7,9 @@
 # include <fcntl.h>
 # include "../libft/includes/libft.h"
 
+typedef struct          s_env
+{
+    int         fourmis;
+}               t_env;
+
 #endif
