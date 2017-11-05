@@ -12,7 +12,7 @@
 
 NAME =		lem-in
 
-SRCS = 		srcs/lem-in.c srcs/create_map.c
+SRCS = 		srcs/lem-in.c srcs/parse_map.c srcs/error_map.c
 
 INCLUDES = 	-I ./includes
 

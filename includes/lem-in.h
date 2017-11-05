@@ -21,21 +21,26 @@
 # define				S_ROOM	1
 # define				E_ROOM	2
 
+typedef	struct			s_link {
+	char				*name;
+	struct s_link		*next;
+}						t_link;
+
 typedef struct			s_room {
 	int					condition;
 	int					role;
 	char				*name;
-	struct s_room		*left;
-	struct s_room		*right;
+	struct s_link		*link;
+	struct s_room		*next;
 }						t_room;
 
 typedef struct			s_data {
 	int					nb_f;//fourmi total
-	int					nb_fs;//fourmi in start room
-	int					nb_fe;//fourni in end room
 	struct s_room		*head;
+	struct s_room		*tail;
 }						t_data;
 
-void        create_map(int fd, t_data **data);
+void        parse_map(int fd, t_data **data);
+void    	error_map();
 
 #endif
