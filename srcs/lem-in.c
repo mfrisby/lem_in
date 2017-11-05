@@ -16,9 +16,9 @@
 
 static void		init_data(t_data **data)
 {
-	(*data)->nb_fs = -1;
-	(*data)->nb_fe = -1;
 	(*data)->nb_f = -1;
+	(*data)->head = NULL;
+	(*data)->tail = NULL;
 }
 
 static int		open_map(char *file)
@@ -41,7 +41,7 @@ int				main(int ac, char **av)
 		ft_putendl("You MUST set ONE file.");
 	if ((fd = open_map(av[1])) == -1)
 		return (-1);
-	create_map(fd, &data);
+	parse_map(fd, &data);
 	//check_map() check if start & end & nb fourmi & chemin possible
 	return (0);
 }
