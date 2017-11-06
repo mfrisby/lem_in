@@ -13,7 +13,29 @@
 #include <fcntl.h>
 #include "../includes/lem-in.h"
 #include "../libft/includes/libft.h"
+static void aff_lst(t_room *head)
+{
+    t_room *tmp;
+    t_link *link;
 
+    tmp = head;
+    while (tmp)
+    {
+        ft_putstr("name: ");
+		ft_putstr(tmp->name);
+        link = tmp->link;
+        while (link)
+        {
+            ft_putstr("  link: ");
+            ft_putstr(link->name);
+            if (!link->ptr)
+                ft_putendl("missing ptr");
+            link = link->next;
+        }
+		ft_putchar('\n');
+        tmp = tmp->next;
+    }
+}
 static void		init_data(t_data **data)
 {
 	(*data)->nb_f = -1;
@@ -42,6 +64,10 @@ int				main(int ac, char **av)
 	if ((fd = open_map(av[1])) == -1)
 		return (-1);
 	parse_map(fd, &data);
-	//check_map() check if start & end & nb fourmi & chemin possible
+	ft_putendl("#############");
+    aff_lst(data->head);
+	ft_putendl("#############");
+	if (check_map(data) == -1)
+		error_map();
 	return (0);
 }

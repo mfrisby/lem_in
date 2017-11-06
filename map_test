@@ -1,11 +1,13 @@
 42
-12
+green 12 1
 ##start
-0 1 0
+yellow 1 0
 ##end
-1 5 0
-2 9 0
-3 13 0
-0-2
-2-3
-3-1
+blue 5 0
+red 4 5
+black 4 6
+#coucou
+blue-green
+red-green
+green-yellow
+yellow-black

@@ -12,13 +12,14 @@
 
 NAME =		lem-in
 
-SRCS = 		srcs/lem-in.c srcs/parse_map.c srcs/error_map.c
+SRCS = 		srcs/lem-in.c srcs/parse_map.c srcs/error_map.c srcs/check_map.c \
+			srcs/get_start_room.c srcs/get_end_room.c srcs/get_room_by_name.c
 
 INCLUDES = 	-I ./includes
 
 OBJS = $(patsubst srcs/%.c, objs/%.o, $(SRCS))
 
-FLAGS =	-Wall -Wextra -Werror
+FLAGS =	-Wall -Wextra -Werror -g
 
 all: $(NAME)
 

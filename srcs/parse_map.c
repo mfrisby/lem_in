@@ -15,7 +15,7 @@ static int get_fourmi(char *buf, t_data **data)
     return (-1);
 }
 
-static void get_room(char *buf, int role, t_data **data)
+static void get_room(char *buf, int *role, t_data **data)
 {
     t_room  *room;
 
@@ -23,7 +23,7 @@ static void get_room(char *buf, int role, t_data **data)
         return ;
     room = malloc(sizeof(t_room) + 1);
     room->condition = EMPTY;
-    room->role = role;
+    room->role = *role;
     room->name = buf;
     room->link = NULL;
     room->next = NULL;
@@ -32,71 +32,46 @@ static void get_room(char *buf, int role, t_data **data)
     if ((*data)->tail)
         (*data)->tail->next = room;
     (*data)->tail = room;
+    *role = 0;
 }
 
-static void add_link(char *buf, t_room *head)
+static void add_link(char *rname, char *lname, t_room *head)
 {
-    t_link  *link;
-    char    **split;
+    t_link  *tmp;
+    t_room  *r;
+    t_room  *l;
 
-    link = NULL;
-    split = ft_strsplit(buf, '-');
-    if (!split || !split[0] || !split[1])
+    r = get_room_by_name(rname, head);
+    l = get_room_by_name(lname, head);
+    if (!r || !l)
+        error_map();
+    if (!r->link)
+    {
+        r->link = malloc(sizeof(t_link) + 1);
+        r->link->next = NULL;
+        r->link->name = ft_strdup(lname);
+        r->link->ptr = l;
         return ;
-    while (head)
-    {
-        if (ft_strcmp(head->name, split[0]) == 0)
-        {
-            if (!head->link)
-            {
-                head->link = malloc(sizeof(t_link) + 1);
-                head->link->next = NULL;
-                head->link->name = ft_strdup(split[1]);
-                return ;
-            }
-            link = head->link;
-            while (link->next)
-                link = link->next;
-            link->next = malloc(sizeof(t_link) + 1);
-            link->next->name = ft_strdup(split[1]);
-            link->next->next = NULL;
-            return ;
-        }
-        head = head->next;
     }
-}
-
-static void aff_lst(t_room *head)
-{
-    while (head)
+    tmp = r->link;
+    while (tmp && tmp->next)
     {
-        ft_putstr("\nname: ");
-        ft_putstr(head->name);
-        while (head->link)
-        {
-            ft_putstr("  link: ");
-            ft_putstr(head->link->name);
-            head->link = head->link->next;
-        }
-        head = head->next;
+        tmp = tmp->next;
     }
-}
-
-static int  get_special_room(char *buf)
-{
-    if (ft_strcmp("##start", buf) == 0)
-        return (S_ROOM);
-    else if (ft_strcmp("##end", buf) == 0)
-        return (E_ROOM);
-    return (ROOM);
+    tmp->next = malloc(sizeof(t_link) + 1);
+    tmp->next->next = NULL;
+    tmp->next->name = ft_strdup(lname);
+    tmp->next->ptr = l;
 }
 
 void        parse_map(int fd, t_data **data)
 {
     int     role;
     char    *buf;
+    char    **split;
 
     buf = NULL;
+    split = NULL;
     role = ROOM;
     while (get_next_line(fd, &buf))
     {
@@ -106,16 +81,27 @@ void        parse_map(int fd, t_data **data)
             error_map();
         if (get_fourmi(buf, data) == -1)
             continue ;
-        if ((role = get_special_room(buf) != 0))
-            continue ;
-        if (ft_strchr(buf, '-') != NULL)
+        if (ft_strcmp("##start", buf) == 0)
         {
-            add_link(buf, (*data)->head);
+            role = S_ROOM;
             continue ;
         }
+        if (ft_strcmp("##end", buf) == 0)
+        {
+            role = E_ROOM;
+            continue ;
+        }
+        if (buf[0] == '#' || buf[0] == 'L')
+            continue;
+        if (ft_strchr(buf, '-') != NULL)
+        {
+            split = ft_strsplit(buf, '-');
+            if (!split || !split[0] || !split[1])
+                break ;
+            add_link(split[0], split[1], (*data)->head);
+            add_link(split[1], split[0], (*data)->head);
+        }
         else
-            get_room(ft_splitblank(buf)[0], role, data);
-        role = ROOM;
+            get_room(ft_splitblank(buf)[0], &role, data);
     }
-    aff_lst((*data)->head);
 }
