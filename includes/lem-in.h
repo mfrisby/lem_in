@@ -17,10 +17,11 @@
 
 # define				EMPTY		0
 # define				FULL		1
+# define				VISITED		-1
+# define				NOT_VISITED	1
 # define				ROOM		0
 # define				S_ROOM		1
 # define				E_ROOM		2
-# define				DEAD_END	-1
 # define				PATH		5
 
 typedef	struct			s_link {
@@ -30,6 +31,7 @@ typedef	struct			s_link {
 }						t_link;
 
 typedef struct			s_room {
+	int					visited;
 	int					condition;
 	int					role;
 	char				*name;

@@ -22,6 +22,7 @@ static void get_room(char *buf, int *role, t_data **data)
     if (!buf)
         return ;
     room = malloc(sizeof(t_room) + 1);
+    room->visited = NOT_VISITED;
     room->condition = EMPTY;
     room->role = *role;
     room->name = buf;

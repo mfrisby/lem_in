@@ -22,45 +22,102 @@ static void check_start_end(t_room *start)
         error_map();
 }
 
-static int  recursive(t_room *room, t_room *parent)
+static t_room  *check_end(t_link *link)
 {
+    while (link)
+    {
+        if (link->ptr->role == E_ROOM)
+            return (link->ptr);
+        link = link->next;
+    }
+    return (NULL);
+}
+
+static int      recursive(t_room *room, t_room *parent)
+{
+    int ret;
     t_room *tmp;
 
     if (!room || room == parent)
         return (-1);
+    ft_putstr(room->name);
+    ft_putstr(" - ");        
     if (room->role == E_ROOM)
-    {
-        ft_putendl("SUCCESS");
         return (1);
-    }
     while (room->link)
     {
-        ft_putstr("\nrecursive: ");
-        ft_putendl(room->name);
-        if (room->link->ptr != parent)
-        {
+        room->visited = VISITED;
+        ret = 0;
+        tmp = check_end(room->link);
+        if (!tmp && room->link->ptr != parent && room->link->ptr->visited == NOT_VISITED)
             tmp = room->link->ptr;
-        }
-        else if (room->link->next)
-            tmp = room->link->next->ptr;
-        else
+        else if (!tmp && !room->link->next)
             return (-1);
-        return (recursive(tmp, room));
+        if (tmp)
+        {
+            ret = recursive(tmp, room);
+            if (ret > 0)
+            {
+                if (room->role == ROOM)
+                    room->role = PATH;
+                return (1);
+            }
+        }
+        room->link = room->link->next;
     }
     return (-1);
 }
+
+// static int  recursive(t_room *room, t_room *parent)
+// {
+//     int ret;
+//     t_room *tmp;
+
+//     ret = 0;
+//     ft_putstr("\nrecursive: ");
+//     ft_putendl(room->name);
+//     if (!room || room == parent)
+//         return (-1);
+//     if (room->role == E_ROOM)
+//         return (1);
+//     while (room->link)
+//     {
+//         if (check_end(room->link) == 1)
+//         {
+//             if (room->role == ROOM)
+//                 room->role = PATH;
+//             return (1);
+//         }
+//         if (room->link->ptr == parent && !room->link->next)
+//             return (-1);
+//         if (room->link->ptr != parent)
+//             tmp = room->link->ptr;
+//         else
+//             return (-1);
+//         ret = recursive(tmp, room);
+//         if (ret > 0)
+//         {
+//             if (room->role == ROOM)
+//                 room->role = PATH;
+//             return (ret);
+//         }
+//         ft_putchar('X');
+//         room->link = room->link->next;
+//     }
+//     return (-1);
+// }
 
 int         check_map(t_data *data)
 {
     t_room  *start;
 
     start = get_start_room(data->head);
-    check_start_end(start);
+    check_start_end(start);//verifie ##end ##start exist
     if (data->nb_f <= 0)
-        error_map();
+        error_map();//verifie les fourmi
     if (!start)
         return (-1);
-    if (recursive(start, NULL) == 1)
+    if (recursive(start, NULL) > 0)
         ft_putendl("\nSUCCESS");
     else
         ft_putendl("\nFAIL");
