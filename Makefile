@@ -13,7 +13,8 @@
 NAME =		lem-in
 
 SRCS = 		srcs/lem-in.c srcs/parse_map.c srcs/error_map.c srcs/check_map.c \
-			srcs/get_start_room.c srcs/get_end_room.c srcs/get_room_by_name.c
+			srcs/get_start_room.c srcs/get_end_room.c srcs/get_room_by_name.c \
+			srcs/go_fourmi.c srcs/ants.c
 
 INCLUDES = 	-I ./includes
 

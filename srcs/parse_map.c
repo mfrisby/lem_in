@@ -22,8 +22,10 @@ static void get_room(char *buf, int *role, t_data **data)
     if (!buf)
         return ;
     room = malloc(sizeof(t_room) + 1);
+    room->poid = 0;
+    room->path = 0;
     room->visited = NOT_VISITED;
-    room->condition = EMPTY;
+    room->fourmi = 0;
     room->role = *role;
     room->name = buf;
     room->link = NULL;
@@ -56,9 +58,7 @@ static void add_link(char *rname, char *lname, t_room *head)
     }
     tmp = r->link;
     while (tmp && tmp->next)
-    {
         tmp = tmp->next;
-    }
     tmp->next = malloc(sizeof(t_link) + 1);
     tmp->next->next = NULL;
     tmp->next->name = ft_strdup(lname);

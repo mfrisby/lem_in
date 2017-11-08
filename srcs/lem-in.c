@@ -13,42 +13,47 @@
 #include <fcntl.h>
 #include "../includes/lem-in.h"
 #include "../libft/includes/libft.h"
-// static void aff_lst(t_room *head)
-// {
-//     int poid;
-//     t_room *tmp;
-//     t_link *link;
 
-// 	tmp = head;
-// 	poid = 0;
-//     while (tmp)
-//     {
-//         ft_putstr("name: ");
-// 		ft_putstr(tmp->name);
-// 		ft_putstr(" - role: ");
-// 		ft_putnbr(tmp->role);
-// 		ft_putchar('\n');
-// 		if (tmp->role > 0)
-// 			poid++;
-//         link = tmp->link;
-//         while (link)
-//         {
-//             ft_putstr("  link: ");
-//             ft_putstr(link->name);
-//             link = link->next;
-//         }
-// 		ft_putchar('\n');
-//         tmp = tmp->next;
-// 	}
-// 	ft_putstr("poid: ");
-// 	ft_putnbr(poid);
-// 	ft_putchar('\n');
-// }
+static void aff_lst(t_room *head)
+{
+    int poid;
+    t_room *tmp;
+    t_link *link;
+
+	tmp = head;
+	poid = 0;
+    while (tmp)
+    {
+        ft_putstr("name: ");
+		ft_putstr(tmp->name);
+		ft_putstr(" - role: ");
+		ft_putnbr(tmp->role);
+		ft_putstr(" - fourmi: ");
+		ft_putnbr(tmp->fourmi);
+		ft_putchar('\n');
+		if (tmp->role > 0)
+			poid++;
+        link = tmp->link;
+        while (link)
+        {
+            ft_putstr("  link: ");
+            ft_putstr(link->name);
+            link = link->next;
+        }
+		ft_putchar('\n');
+        tmp = tmp->next;
+	}
+	ft_putstr("poid: ");
+	ft_putnbr(poid);
+	ft_putchar('\n');
+}
+
 static void		init_data(t_data **data)
 {
 	(*data)->nb_f = -1;
 	(*data)->head = NULL;
 	(*data)->tail = NULL;
+	(*data)->ants = NULL;
 }
 
 static int		open_map(char *file)
@@ -71,11 +76,18 @@ int				main(int ac, char **av)
 		ft_putendl("You MUST set ONE file.");
 	if ((fd = open_map(av[1])) == -1)
 		return (-1);
-	parse_map(fd, &data);	
-	// ft_putendl("#############");
-	// aff_lst(data->head);
-	// ft_putendl("#############");
+	parse_map(fd, &data);
 	if (check_map(data) == -1)
 		error_map();
+
+		ft_putstr("FOURMI : ");
+		ft_putnbr(data->nb_f);
+		ft_putchar('\n');
+		ft_putendl("#############");
+		aff_lst(data->head);
+		ft_putendl("#############");
+
+	make_anthill(data);
+	go_fourmi(data);
 	return (0);
 }
