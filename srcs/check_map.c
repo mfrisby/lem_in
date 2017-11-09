@@ -33,7 +33,7 @@ static t_room  *check_end(t_link *link)
     return (NULL);
 }
 
-static int      recursive(t_room *room, t_room *parent, int i)
+static int      recursive(t_room *room, t_room *parent)
 {
     int         ret;
     t_room      *tmp;
@@ -55,15 +55,13 @@ static int      recursive(t_room *room, t_room *parent, int i)
             return (-1);
         if (tmp)
         {
-            ret = recursive(tmp, room, i + 1);
+            ret = recursive(tmp, room);
             if (ret > 0)
             {
                 ret++;
                 room->poid = ret;
                 if (room->role == ROOM)
                     room->role = PATH;
-                ft_putstr(room->name);
-                ft_putstr(" - ");
                 return (ret);
             }
         }
@@ -75,19 +73,23 @@ static int      recursive(t_room *room, t_room *parent, int i)
 int         check_map(t_data *data)
 {
     t_room  *start;
+    int i;
 
+    i = 0;
     start = get_start_room(data->head);
     check_start_end(start);
     if (data->nb_f <= 0)
         error_map();
     if (!start)
         return (-1);
-    while (start)//visite toute les salles cest OKOKOKOKOK
-    {
-        recursive(start, NULL, 0);
-        start = start->next;
-    }
     //TODO
-    //TEST PARCOURS DE MAP AU MOINS UN CHEMIN
+    // changer le multi path
+    //il cree des chemins faux
+    //toujours partir de start pour trouver chemin
+    while (i < 10)
+    {
+        recursive(start, NULL);
+        i++;
+    }
     return (0);
 }

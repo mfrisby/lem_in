@@ -23,7 +23,6 @@
 # define				PATH		5
 
 typedef	struct			s_link {
-	char				*name;
 	struct s_room		*ptr;
 	struct s_link		*next;
 }						t_link;

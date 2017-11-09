@@ -35,12 +35,8 @@ static void aff_lst(t_room *head)
 			poid++;
         link = tmp->link;
         while (link)
-        {
-            ft_putstr("  link: ");
-            ft_putstr(link->name);
             link = link->next;
-        }
-		ft_putchar('\n');
+		//ft_putchar('\n');
         tmp = tmp->next;
 	}
 }
