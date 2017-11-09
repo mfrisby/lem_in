@@ -15,8 +15,8 @@
 
 # include <unistd.h>
 
-# define				VISITED		-1
-# define				NOT_VISITED	1
+# define				VISITED		1
+# define				NOT_VISITED	-1
 # define				ROOM		0
 # define				S_ROOM		1
 # define				E_ROOM		2
@@ -29,11 +29,10 @@ typedef	struct			s_link {
 }						t_link;
 
 typedef struct			s_room {
-	int					path;
-	int					poid;
-	int					visited;
+	int					poid;//nbr de salle avant END -1 si DEAD END
+	int					visited;// VISITED/NOT VISITED
 	int					fourmi;
-	int					role;
+	int					role;//START END NORMAL
 	char				*name;
 	struct s_link		*link;
 	struct s_room		*next;

@@ -35,44 +35,41 @@ static t_room  *check_end(t_link *link)
 
 static int      recursive(t_room *room, t_room *parent, int i)
 {
-    int ret;
-    t_room *tmp;
+    int         ret;
+    t_room      *tmp;
+    t_link      *link;
 
     if (!room || room == parent)
         return (-1);
-    ft_putstr(room->name);
-    ft_putstr(" | i:");
-    ft_putnbr(i);
-    ft_putstr("| ");
+    room->visited = VISITED;
     if (room->role == E_ROOM)
-    {
-        room->path = i;
         return (1);
-    }
-    ft_putstr(" - ");
-    while (room->link)
+    link = room->link;
+    while (link)
     {
-        room->visited = VISITED;
         ret = 0;
-        tmp = check_end(room->link);
-        if (!tmp && room->link->ptr != parent && room->link->ptr->visited == NOT_VISITED)
-            tmp = room->link->ptr;
-        else if (!tmp && !room->link->next)
+        tmp = check_end(link);
+        if (!tmp && link->ptr != parent && link->ptr->visited == NOT_VISITED)
+            tmp = link->ptr;
+        else if (!tmp && !link->next)
             return (-1);
         if (tmp)
         {
-            ret = recursive(tmp, room, i+1);
+            ret = recursive(tmp, room, i + 1);
             if (ret > 0)
             {
-                room->path = i;
+                ret++;
+                room->poid = ret;
                 if (room->role == ROOM)
                     room->role = PATH;
-                return (1);
+                ft_putstr(room->name);
+                ft_putstr(" - ");
+                return (ret);
             }
         }
-        room->link = room->link->next;
+        link = link->next;
     }
-    return (-1);
+    return (ret);
 }
 
 int         check_map(t_data *data)
@@ -85,9 +82,12 @@ int         check_map(t_data *data)
         error_map();
     if (!start)
         return (-1);
-    if (recursive(start, NULL, 0) > 0)
-        ft_putendl("\nSUCCESS");
-    else
-        ft_putendl("\nFAIL");
+    while (start)//visite toute les salles cest OKOKOKOKOK
+    {
+        recursive(start, NULL, 0);
+        start = start->next;
+    }
+    //TODO
+    //TEST PARCOURS DE MAP AU MOINS UN CHEMIN
     return (0);
 }

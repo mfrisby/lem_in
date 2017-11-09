@@ -2,7 +2,18 @@
 #include "../includes/lem-in.h"
 #include "../libft/includes/libft.h"
 
-static int  recursive_step(t_ant *head)
+static void ant_step_output(t_ant *ant)
+{
+    ft_putchar('L');
+    ft_putstr(ant->name);
+    ft_putchar('-');
+    ft_putstr(ant->room->name);
+    ft_putchar(':');
+    ft_putnbr(ant->room->poid);
+    ft_putchar(' ');
+}
+
+static void  recursive_step(t_ant *head)
 {
     t_ant   *ant;
     t_link  *link;
@@ -13,7 +24,7 @@ static int  recursive_step(t_ant *head)
     {
         if (ant->room->role == E_ROOM)
             break;
-        else if ((link->ptr->role == PATH && link->ptr->fourmi == 1) || link->ptr->path < ant->room->path)
+        else if ((link->ptr->role == PATH && link->ptr->fourmi == 1) || link->ptr->poid > ant->room->poid)
         {
             link = link->next;
             continue;
@@ -23,18 +34,13 @@ static int  recursive_step(t_ant *head)
             ant->room->fourmi--;
             ant->room = link->ptr;
             ant->room->fourmi++;
-            ft_putchar('L');
-            ft_putstr(ant->name);
-            ft_putchar('-');
-            ft_putstr(ant->room->name);
-            ft_putchar(' ');
+            ant_step_output(ant);
             break;
         }
         link = link->next;
     }
     if (ant->next)
         recursive_step(ant->next);
-    return (0);
 }
 
 void        go_fourmi(t_data *data)
@@ -49,10 +55,15 @@ void        go_fourmi(t_data *data)
     end = get_end_room(data->head);
     while (end->fourmi < data->nb_f)
     {
-        if (round > 50)
+        if (round > 100)//secure DEBUG
             break;
         recursive_step(data->ants);
-        ft_putchar('\n');
+        //TODO
+        //AJOUT CHOIX SALLE POID LE PLUS FAIBLE 
+       // ft_putchar('\n');
         round++;
     }
+    ft_putchar(':');
+    ft_putnbr(end->fourmi);
+    ft_putstr(":\n");
 }

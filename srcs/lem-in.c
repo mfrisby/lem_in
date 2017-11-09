@@ -28,8 +28,8 @@ static void aff_lst(t_room *head)
 		ft_putstr(tmp->name);
 		ft_putstr(" - role: ");
 		ft_putnbr(tmp->role);
-		ft_putstr(" - fourmi: ");
-		ft_putnbr(tmp->fourmi);
+		ft_putstr(" - poid: ");
+		ft_putnbr(tmp->poid);
 		ft_putchar('\n');
 		if (tmp->role > 0)
 			poid++;
@@ -43,9 +43,6 @@ static void aff_lst(t_room *head)
 		ft_putchar('\n');
         tmp = tmp->next;
 	}
-	ft_putstr("poid: ");
-	ft_putnbr(poid);
-	ft_putchar('\n');
 }
 
 static void		init_data(t_data **data)
@@ -77,8 +74,10 @@ int				main(int ac, char **av)
 	if ((fd = open_map(av[1])) == -1)
 		return (-1);
 	parse_map(fd, &data);
+
 	if (check_map(data) == -1)
 		error_map();
+
 
 		ft_putstr("FOURMI : ");
 		ft_putnbr(data->nb_f);
