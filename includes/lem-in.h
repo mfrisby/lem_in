@@ -52,7 +52,7 @@ typedef struct			s_data {
 
 void        parse_map(int fd, t_data **data);
 void    	error_map();
-int         check_map(t_data *data);
+void        check_map(t_data *data);
 void        go_fourmi(t_data *data);
 t_room		*get_start_room(t_room *head);
 t_room		*get_end_room(t_room *head);

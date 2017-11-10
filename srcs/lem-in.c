@@ -70,9 +70,7 @@ int				main(int ac, char **av)
 	if ((fd = open_map(av[1])) == -1)
 		return (-1);
 	parse_map(fd, &data);
-
-	if (check_map(data) == -1)
-		error_map();
+	check_map(data);
 
 
 		ft_putstr("FOURMI : ");
