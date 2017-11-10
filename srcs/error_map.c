@@ -4,6 +4,6 @@
 
 void    error_map()
 {
-    ft_putendl("Something went wrong with your map.");
+    ft_putendl("ERROR");
     exit(0);
 }
