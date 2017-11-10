@@ -58,5 +58,6 @@ t_room		*get_start_room(t_room *head);
 t_room		*get_end_room(t_room *head);
 t_room      *get_room_by_name(char *name, t_room *head);
 void        make_anthill(t_data *data);
+int     get_path(t_data *data);
 
 #endif
