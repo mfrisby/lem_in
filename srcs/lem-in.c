@@ -66,7 +66,7 @@ int				main(int ac, char **av)
 	data = malloc(sizeof(t_data));
 	init_data(&data);
 	if (ac != 2)
-		ft_putendl("You MUST set ONE file.");
+		error_map();
 	if ((fd = open_map(av[1])) == -1)
 		return (-1);
 	parse_map(fd, &data);
