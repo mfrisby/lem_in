@@ -44,6 +44,7 @@ typedef	struct			s_ant {
 }						t_ant;
 
 typedef struct			s_data {
+	int					has_end;
 	int					nb_f;//fourmi total
 	struct s_ant		*ants;
 	struct s_room		*head;

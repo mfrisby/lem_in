@@ -14,13 +14,15 @@
 #include "../libft/includes/libft.h"
 #include  <stdio.h>
 
-static t_room  *check_end(t_link *link, int poid)
+static t_room  *check_end(t_link *link, int poid, t_data *data)
 {
 	while (link)
 	{
 		if (link->ptr->role == S_ROOM)
 		{
 			link->ptr->poid = poid + 1;
+			ft_putendl("ici");
+			data->has_end = 1;
 			return (link->ptr);
 		}
 		link = link->next;
@@ -36,7 +38,7 @@ static int          check_room_role(t_room *room, int check)
 	return (check);
 }
 
-static int          recursive(t_room *room, t_room *parent, int poid)
+static int          recursive(t_room *room, t_room *parent, int poid, t_data *data)
 {
 	int             check;
 	t_link          *link;
@@ -44,16 +46,17 @@ static int          recursive(t_room *room, t_room *parent, int poid)
 	check = 0;
 	link = room->link;
 	room->visited = VISITED;
-	if (check_end(link, poid))
+	if (check_end(link, poid, data))
 	{
 		room->poid = poid;
-		room->role = PATH;
+		if (room->role == ROOM)
+			room->role = PATH;
 		return (1);
 	}
 	while (link)
 	{
 		if (link->ptr != parent && link->ptr->visited != VISITED
-				&& recursive(link->ptr, room, poid + 1) > 0)
+				&& recursive(link->ptr, room, poid + 1, data) > 0)
 		{
 			room->poid = poid;
 			check = 1;
@@ -67,8 +70,8 @@ int     get_path(t_data *data)
 {    
 	int ret;
 
-	ret = recursive(get_end_room(data->head), NULL, 0);
-	if (ret == -1)
+	ret = recursive(get_end_room(data->head), NULL, 0, data);
+	if (data->has_end != 1)
 		error_map();
 	return (ret);
 }

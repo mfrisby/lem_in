@@ -55,6 +55,7 @@
 static void		init_data(t_data **data)
 {
 	(*data)->nb_f = -1;
+	(*data)->has_end = 0;
 	(*data)->head = NULL;
 	(*data)->tail = NULL;
 	(*data)->ants = NULL;

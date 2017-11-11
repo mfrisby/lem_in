@@ -13,50 +13,16 @@
 #include "../includes/lem-in.h"
 #include "../libft/includes/libft.h"
 
-static void ant_step_output(t_ant *ant)
-{
-	ft_putchar('L');
-	ft_putstr(ant->name);
-	ft_putchar('-');
-	ft_putstr(ant->room->name);
-	ft_putchar(' ');
-}
-
-static t_link   *get_short_pass(t_link *link)
-{
-	int         poid;
-	t_link      *tmp;
-	t_link      *ret;
-
-	poid = -1;
-	tmp = link;
-	ret = NULL;
-	while (tmp)
-	{
-		if (tmp->ptr->role == PATH && tmp->ptr->fourmi == 0)
-		{
-			if (poid == -1)
-			{
-				poid = tmp->ptr->poid;
-				ret = tmp;
-			}
-			if (tmp->ptr->poid < poid)
-			{
-				poid = tmp->ptr->poid;
-				ret = tmp;
-			}
-		}
-		tmp = tmp->next;
-	}
-	return (ret);
-}
-
 static void     make_step(t_ant *ant, t_link *link)
 {
 	ant->room->fourmi--;
 	ant->room = link->ptr;
 	ant->room->fourmi++;
-	ant_step_output(ant);
+	ft_putchar('L');
+	ft_putstr(ant->name);
+	ft_putchar('-');
+	ft_putstr(ant->room->name);
+	ft_putchar(' ');
 }
 
 static void     recursive_step(t_ant *head)
@@ -72,9 +38,6 @@ static void     recursive_step(t_ant *head)
 	{
 		if (ant->room->role == E_ROOM)
 			break;
-		tmp = get_short_pass(link);
-		if (tmp)
-			link = tmp;
 		if ((link->ptr->role == PATH && link->ptr->fourmi == 0
 					&& link->ptr->poid < ant->room->poid) || link->ptr->role == E_ROOM)
 		{
