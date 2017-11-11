@@ -6,17 +6,17 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:55:52 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/10 18:55:57 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/11 18:54:07 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem-in.h"
 #include "../libft/includes/libft.h"
 
-static void check_start_end(t_room *start)
+static void		check_start_end(t_room *start)
 {
-	int startok;
-	int endok;
+	int			startok;
+	int			endok;
 
 	startok = 0;
 	endok = 0;
@@ -34,9 +34,9 @@ static void check_start_end(t_room *start)
 		error_map();
 }
 
-void         check_map(t_data *data)
+void			check_map(t_data *data)
 {
-	t_room  *start;
+	t_room		*start;
 
 	if (!data->head)
 		error_map();

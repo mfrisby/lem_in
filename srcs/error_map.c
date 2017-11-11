@@ -6,14 +6,14 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:56:02 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/10 18:56:07 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/11 18:54:36 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lem-in.h"
 #include "../libft/includes/libft.h"
 
-void    error_map()
+void	error_map(void)
 {
 	ft_putendl("ERROR");
 	exit(0);

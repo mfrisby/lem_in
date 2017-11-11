@@ -6,12 +6,12 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:20:43 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/05/02 16:21:44 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/11 18:56:22 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEMIN_H
-# define LEMIN_H
+#ifndef LEM-IN_H
+# define LEM-IN_H
 
 # include <unistd.h>
 
@@ -28,10 +28,10 @@ typedef	struct			s_link {
 }						t_link;
 
 typedef struct			s_room {
-	int					poid;//nbr de salle avant END -1 si DEAD END
-	int					visited;// VISITED/NOT VISITED
+	int					poid;
+	int					visited;
 	int					fourmi;
-	int					role;//START END NORMAL
+	int					role;
 	char				*name;
 	struct s_link		*link;
 	struct s_room		*next;
@@ -45,20 +45,20 @@ typedef	struct			s_ant {
 
 typedef struct			s_data {
 	int					has_end;
-	int					nb_f;//fourmi total
+	int					nb_f;
 	struct s_ant		*ants;
 	struct s_room		*head;
 	struct s_room		*tail;//TODO REMOVE MAYBE
 }						t_data;
 
-void        parse_map(int fd, t_data **data);
-void    	error_map();
-void        check_map(t_data *data);
-void        go_fourmi(t_data *data);
-t_room		*get_start_room(t_room *head);
-t_room		*get_end_room(t_room *head);
-t_room      *get_room_by_name(char *name, t_room *head);
-void        make_anthill(t_data *data);
-int     get_path(t_data *data);
+void					parse_map(int fd, t_data **data);
+void					error_map();
+void					check_map(t_data *data);
+void					go_fourmi(t_data *data);
+t_room					*get_start_room(t_room *head);
+t_room					*get_end_room(t_room *head);
+t_room					*get_room_by_name(char *name, t_room *head);
+void					make_anthill(t_data *data);
+int						get_path(t_data *data);
 
 #endif
