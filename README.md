@@ -8,5 +8,5 @@ TODO
         et son traitement normal avec les données déjà acquises.
       - S’il n’y a pas assez de donnée pour faire un traitement normal vous devrez simplement
         afficher ERROR
-  - Fichier auteur
+  - Fichier auteur |OK|
   - Norme
