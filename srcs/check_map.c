@@ -15,8 +15,8 @@
 
 static void		check_start_end(t_room *start)
 {
-	int			startok;
-	int			endok;
+	int		startok;
+	int		endok;
 
 	startok = 0;
 	endok = 0;

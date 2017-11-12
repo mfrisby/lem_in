@@ -69,7 +69,7 @@ static int		open_map(char *file)
 	return (fd);
 }
 
-int				main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_data		*data;
 	int 		fd;

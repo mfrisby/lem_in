@@ -12,9 +12,8 @@
 
 #include "../includes/lem-in.h"
 #include "../libft/includes/libft.h"
-#include  <stdio.h>
 
-static t_room  *check_end(t_link *link, int poid, t_data *data)
+static t_room		*check_end(t_link *link, int poid, t_data *data)
 {
 	while (link)
 	{
@@ -30,7 +29,7 @@ static t_room  *check_end(t_link *link, int poid, t_data *data)
 	return (NULL);
 }
 
-static int          check_room_role(t_room *room, int check)
+static int		check_room_role(t_room *room, int check)
 {
 	if (check == 1)
 		if (room->role != S_ROOM && room->role != E_ROOM)
@@ -38,10 +37,10 @@ static int          check_room_role(t_room *room, int check)
 	return (check);
 }
 
-static int          recursive(t_room *room, t_room *parent, int poid, t_data *data)
+static int		recursive(t_room *room, t_room *parent, int poid, t_data *data)
 {
-	int             check;
-	t_link          *link;
+	int		check;
+	t_link		*link;
 
 	check = 0;
 	link = room->link;
@@ -66,9 +65,9 @@ static int          recursive(t_room *room, t_room *parent, int poid, t_data *da
 	return (check_room_role(room, check));
 }
 
-int     get_path(t_data *data)
+int			get_path(t_data *data)
 {    
-	int ret;
+	int		ret;
 
 	ret = recursive(get_end_room(data->head), NULL, 0, data);
 	if (data->has_end != 1)

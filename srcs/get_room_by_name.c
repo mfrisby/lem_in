@@ -13,7 +13,7 @@
 #include "../includes/lem-in.h"
 #include "../libft/includes/libft.h"
 
-t_room          *get_room_by_name(char *name, t_room *head)
+t_room		*get_room_by_name(char *name, t_room *head)
 {
     while (head)
     {
