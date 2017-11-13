@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <fcntl.h>
-#include "../includes/lem-in.h"
+#include "../includes/lemin.h"
 #include "../libft/includes/libft.h"
 
 // static void aff_lst(t_room *head)

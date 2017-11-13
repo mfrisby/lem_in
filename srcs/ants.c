@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lemin.h"
 #include "../libft/includes/libft.h"
 
 static t_ant	*make_ant(int name, t_room *start)

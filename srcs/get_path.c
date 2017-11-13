@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lem-in.h"
+#include "../includes/lemin.h"
 #include "../libft/includes/libft.h"
 
 static t_room		*check_end(t_link *link, int poid, t_data *data)
