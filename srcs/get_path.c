@@ -20,7 +20,6 @@ static t_room	*check_end(t_link *link, int poid, t_data *data)
 		if (link->ptr->role == S_ROOM)
 		{
 			link->ptr->poid = poid + 1;
-			ft_putendl("ici");
 			data->has_end = 1;
 			return (link->ptr);
 		}
