@@ -6,7 +6,7 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:21:59 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/13 10:24:12 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 10:52:40 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,16 @@
 #include "../includes/lemin.h"
 #include "../libft/includes/libft.h"
 
-static void aff_lst(t_room *head)
+static void		aff_lst(t_room *head)
 {
-    t_room *tmp;
-    t_link *link;
+	t_room		*tmp;
+	t_link		*link;
 
 	tmp = head;
-    while (tmp)
-    {
-		ft_printf("name: %s - role: %d - poid: %d\n", tmp->name, tmp->role, tmp->poid);
+	while (tmp)
+	{
+		ft_printf("name: %s - role: %d - poid: %d\n"
+				, tmp->name, tmp->role, tmp->poid);
 		link = tmp->link;
 		if (link)
 			ft_putstr("    tubes: ");
@@ -32,10 +33,10 @@ static void aff_lst(t_room *head)
 			ft_putstr(link->ptr->name);
 			if (link->next)
 				ft_putstr(" -");
-            link = link->next;
+			link = link->next;
 		}
 		ft_putchar('\n');
-        tmp = tmp->next;
+		tmp = tmp->next;
 	}
 }
 
@@ -64,6 +65,8 @@ int				main(int ac, char **av)
 	fd = -1;
 	data = malloc(sizeof(t_data));
 	init_data(&data);
+	if (ac == 3 && (ft_strcmp(av[2], "--debug") != 0))
+		error_map();
 	if (ac != 2)
 		error_map();
 	if ((fd = open_map(av[1])) == -1)
@@ -72,8 +75,11 @@ int				main(int ac, char **av)
 	check_map(data);
 	if (get_path(data) == -1)
 		error_map();
-	aff_lst(get_start_room(data->head));
-	ft_putchar('\n');
+	if (ac == 3)
+	{
+		aff_lst(get_start_room(data->head));
+		ft_putchar('\n');
+	}
 	make_anthill(data);
 	go_fourmi(data);
 	return (0);
