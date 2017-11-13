@@ -6,7 +6,7 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:57:20 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/13 10:25:32 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 14:40:00 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int		get_room(char *buf, int role, t_data **data)
 	return (0);
 }
 
-static void		add_link(char *rname, char *lname, t_room *head)
+static int		add_link(char *rname, char *lname, t_room *head)
 {
 	t_link		*tmp;
 	t_room		*r;
@@ -58,13 +58,13 @@ static void		add_link(char *rname, char *lname, t_room *head)
 	r = get_room_by_name(rname, head);
 	l = get_room_by_name(lname, head);
 	if (!r || !l)
-		return ;
+		return (-1);
 	if (!r->link)
 	{
 		r->link = malloc(sizeof(t_link) + 1);
 		r->link->next = NULL;
 		r->link->ptr = l;
-		return ;
+		return (0);
 	}
 	tmp = r->link;
 	while (tmp && tmp->next)
@@ -72,40 +72,38 @@ static void		add_link(char *rname, char *lname, t_room *head)
 	tmp->next = malloc(sizeof(t_link) + 1);
 	tmp->next->next = NULL;
 	tmp->next->ptr = l;
+	return (0);
 }
 
-static int		parse_buf(char *buf, t_data **data, int *role)
+static int		parse_buf(char **s, char *buf, t_data **data, int *role)
 {
-	char		**split;
-
-	split = ft_splitblank(buf);
-	if ((ft_strchr(split[0], '-') != NULL) && !split[1]
+	if ((ft_strchr(s[0], '-') != NULL) && !s[1]
 			&& (*data)->head && (*data)->nb_f != -1)
 	{
-		if (*role > 0)
+		s = ft_strsplit(buf, '-');
+		if (*role > 0 || !s || !s[0] || !s[1])
 			return (-1);
-		split = ft_strsplit(buf, '-');
-		if (!split || !split[0] || !split[1])
+		if ((add_link(s[0], s[1], (*data)->head)) == -1
+			|| (add_link(s[1], s[0], (*data)->head) == -1))
 			return (-1);
-		add_link(split[0], split[1], (*data)->head);
-		add_link(split[1], split[0], (*data)->head);
 	}
-	else if (split[0] && !split[1])
+	else if (s[0] && !s[1])
 	{
 		if (*role > 0)
 			return (-1);
 		return (get_fourmi(buf, data));
 	}
-	else if (split[0] && (ft_strchr(split[0], '-') == NULL)
-			&& split[1] && split[2]
-			&& (ft_isnumber(split[1]) == 1) && (ft_isnumber(split[2]) == 1))
-		return (get_room(split[0], *role, data));
+	else if (s[0] && s[1] && s[2] && (ft_strchr(s[0], '-') != NULL))
+		return (-1);
+	else if (s[0] && (ft_strchr(s[0], '-') == NULL)
+			&& s[1] && s[2]
+			&& (ft_isnumber(s[1]) == 1) && (ft_isnumber(s[2]) == 1))
+		return (get_room(s[0], *role, data));
 	return (0);
 }
 
-void			parse_map(int fd, t_data **data)
+void			parse_map(int fd, t_data **data, char *buf)
 {
-	char		*buf;
 	int			role;
 
 	buf = NULL;
@@ -114,6 +112,7 @@ void			parse_map(int fd, t_data **data)
 	{
 		if (!buf || ft_strlen(buf) <= 0)
 			break ;
+		ft_putendl(buf);
 		if (ft_strcmp("##start", buf) == 0)
 		{
 			role = S_ROOM;
@@ -126,7 +125,7 @@ void			parse_map(int fd, t_data **data)
 		}
 		else if (ft_splitblank(buf)[0][0] == '#')
 			continue;
-		if (parse_buf(buf, data, &role) == -1)
+		if (parse_buf(ft_splitblank(buf), buf, data, &role) == -1)
 			break ;
 		role = ROOM;
 	}

@@ -67,8 +67,10 @@ static int		recursive(t_room *room, t_room *parent, int poid, t_data *data)
 int				get_path(t_data *data)
 {
 	int			ret;
+	t_room		*start;
 
 	ret = recursive(get_end_room(data->head), NULL, 0, data);
+	start = get_start_room(data->head);
 	if (data->has_end != 1)
 		error_map();
 	return (ret);
