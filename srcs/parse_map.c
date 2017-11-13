@@ -96,7 +96,7 @@ static int		parse_buf(char *buf, t_data **data, int *role)
 			return (-1);
 		return (get_fourmi(buf, data));
 	}
-	else if (split[0] && split[1] && split[2]
+	else if (split[0] && (ft_strchr(split[0], '-') == NULL) && split[1] && split[2]
 			&& (ft_isnumber(split[1]) == 1) && (ft_isnumber(split[2]) == 1))
 		return (get_room(split[0], *role, data));
 	return (0);
