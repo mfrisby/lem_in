@@ -6,7 +6,7 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:20:43 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/11 18:56:22 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 14:25:53 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include <unistd.h>
 
-# define				VISITED		1
-# define				NOT_VISITED	-1
-# define				ROOM		0
-# define				S_ROOM		1
-# define				E_ROOM		2
-# define				PATH		5
+# define VISITED 1
+# define NOT_VISITED -1
+# define ROOM 0
+# define S_ROOM 1
+# define E_ROOM 2
+# define PATH 5
 
 typedef	struct			s_link {
 	struct s_room		*ptr;
@@ -48,7 +48,7 @@ typedef struct			s_data {
 	int					nb_f;
 	struct s_ant		*ants;
 	struct s_room		*head;
-	struct s_room		*tail;//TODO REMOVE MAYBE
+	struct s_room		*tail;
 }						t_data;
 
 void					parse_map(int fd, t_data **data);
