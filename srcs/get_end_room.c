@@ -6,15 +6,15 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:56:12 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/10 18:56:16 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 10:21:34 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-t_room  *get_end_room(t_room *head)
+t_room				*get_end_room(t_room *head)
 {
-	static t_room  *room = NULL;
+	static t_room	*room = NULL;
 
 	if (!room)
 	{

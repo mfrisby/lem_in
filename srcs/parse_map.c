@@ -6,7 +6,7 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:57:20 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/11 18:53:19 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 10:25:32 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ static int		parse_buf(char *buf, t_data **data, int *role)
 			return (-1);
 		return (get_fourmi(buf, data));
 	}
-	else if (split[0] && (ft_strchr(split[0], '-') == NULL) && split[1] && split[2]
+	else if (split[0] && (ft_strchr(split[0], '-') == NULL)
+			&& split[1] && split[2]
 			&& (ft_isnumber(split[1]) == 1) && (ft_isnumber(split[2]) == 1))
 		return (get_room(split[0], *role, data));
 	return (0);

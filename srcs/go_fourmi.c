@@ -6,14 +6,14 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:57:04 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/10 18:57:09 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 10:23:04 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 #include "../libft/includes/libft.h"
 
-static void     make_step(t_ant *ant, t_link *link)
+static void		make_step(t_ant *ant, t_link *link)
 {
 	ant->room->fourmi--;
 	ant->room = link->ptr;
@@ -25,11 +25,11 @@ static void     make_step(t_ant *ant, t_link *link)
 	ft_putchar(' ');
 }
 
-static void     recursive_step(t_ant *head)
+static void		recursive_step(t_ant *head)
 {
-	t_ant   *ant;
-	t_link  *link;
-	t_link  *tmp;
+	t_ant		*ant;
+	t_link		*link;
+	t_link		*tmp;
 
 	ant = head;
 	link = ant->room->link;
@@ -37,12 +37,13 @@ static void     recursive_step(t_ant *head)
 	while (link)
 	{
 		if (ant->room->role == E_ROOM)
-			break;
+			break ;
 		if ((link->ptr->role == PATH && link->ptr->fourmi == 0
-					&& link->ptr->poid < ant->room->poid) || link->ptr->role == E_ROOM)
+				&& link->ptr->poid < ant->room->poid)
+				|| link->ptr->role == E_ROOM)
 		{
 			make_step(ant, link);
-			break;
+			break ;
 		}
 		link = link->next;
 	}
@@ -50,11 +51,11 @@ static void     recursive_step(t_ant *head)
 		recursive_step(ant->next);
 }
 
-void        go_fourmi(t_data *data)
+void			go_fourmi(t_data *data)
 {
-	int     round;
-	t_room  *start;
-	t_room  *end;
+	int			round;
+	t_room		*start;
+	t_room		*end;
 
 	round = 0;
 	start = get_start_room(data->head);
@@ -63,7 +64,7 @@ void        go_fourmi(t_data *data)
 	while (end->fourmi < data->nb_f)
 	{
 		if (round > 500)
-			break;
+			break ;
 		recursive_step(data->ants);
 		ft_putchar('\n');
 		round++;

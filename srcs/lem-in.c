@@ -6,7 +6,7 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/02 16:21:59 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/10 18:57:16 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 10:24:12 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ static int		open_map(char *file)
 	return (fd);
 }
 
-int			main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	t_data		*data;
-	int 		fd;
+	int			fd;
 
 	fd = -1;
 	data = malloc(sizeof(t_data));
@@ -85,13 +85,6 @@ int			main(int ac, char **av)
 	check_map(data);
 	if (get_path(data) == -1)
 		error_map();
-	// ft_putstr("FOURMI : ");
-	// ft_putnbr(data->nb_f);
-	// ft_putchar('\n');
-	// ft_putendl("#############");
-	// aff_lst(data->head);
-	// ft_putendl("#############");
-
 	ft_putchar('\n');
 	make_anthill(data);
 	go_fourmi(data);

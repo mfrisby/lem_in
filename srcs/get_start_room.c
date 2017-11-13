@@ -6,15 +6,15 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:56:53 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/10 18:56:58 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 10:25:08 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-t_room  *get_start_room(t_room *head)
+t_room				*get_start_room(t_room *head)
 {
-	static t_room  *room = NULL;
+	static t_room	*room = NULL;
 
 	if (!room)
 	{
@@ -23,7 +23,7 @@ t_room  *get_start_room(t_room *head)
 			if (head->role == S_ROOM)
 			{
 				room = head;
-				break;
+				break ;
 			}
 			head = head->next;
 		}

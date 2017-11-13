@@ -6,14 +6,14 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:56:22 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/10 18:56:25 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 10:21:01 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 #include "../libft/includes/libft.h"
 
-static t_room		*check_end(t_link *link, int poid, t_data *data)
+static t_room	*check_end(t_link *link, int poid, t_data *data)
 {
 	while (link)
 	{
@@ -39,7 +39,7 @@ static int		check_room_role(t_room *room, int check)
 
 static int		recursive(t_room *room, t_room *parent, int poid, t_data *data)
 {
-	int		check;
+	int			check;
 	t_link		*link;
 
 	check = 0;
@@ -65,9 +65,9 @@ static int		recursive(t_room *room, t_room *parent, int poid, t_data *data)
 	return (check_room_role(room, check));
 }
 
-int			get_path(t_data *data)
-{    
-	int		ret;
+int				get_path(t_data *data)
+{
+	int			ret;
 
 	ret = recursive(get_end_room(data->head), NULL, 0, data);
 	if (data->has_end != 1)

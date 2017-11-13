@@ -6,7 +6,7 @@
 /*   By: mfrisby <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 18:56:34 by mfrisby           #+#    #+#             */
-/*   Updated: 2017/11/10 18:56:43 by mfrisby          ###   ########.fr       */
+/*   Updated: 2017/11/13 10:24:37 by mfrisby          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 t_room		*get_room_by_name(char *name, t_room *head)
 {
-    while (head)
-    {
-        if (ft_strcmp(name, head->name) == 0)
-            return (head);
-        head = head->next;
-    }
-    return (NULL);
+	while (head)
+	{
+		if (ft_strcmp(name, head->name) == 0)
+			return (head);
+		head = head->next;
+	}
+	return (NULL);
 }
